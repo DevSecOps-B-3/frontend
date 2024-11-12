@@ -7,7 +7,7 @@ RUN npm install
 
 COPY . .
 ARG VITE_APP_BASE_URL
-RUN VITE_APP_BASE_URL=$VITE_APP_BASE_URL bun run build
+RUN VITE_APP_BASE_URL=$VITE_APP_BASE_URL npm run build
 
 # Stage 2
 FROM nginx:1.25.2-alpine
