@@ -7,7 +7,8 @@ COPY package*.json ./
 RUN bun install
 
 COPY . .
-RUN bun run build
+ARG VITE_APP_BASE_URL
+RUN VITE_APP_BASE_URL=$VITE_APP_BASE_URL bun run build
 
 # Stage 2
 FROM nginx:1.25.2-alpine
