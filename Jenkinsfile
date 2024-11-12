@@ -51,7 +51,7 @@ pipeline {
     stage('Deploy to Production') {
       steps {
         script{
-          sh 'docker run -p 80:80 --restart=unless-stopped ambamovie-img:latest' 
+          sh 'docker run -p 80:80 --restart=unless-stopped -d --name ambamovie-fe ambamovie-img:latest' 
         }
       }
     }
