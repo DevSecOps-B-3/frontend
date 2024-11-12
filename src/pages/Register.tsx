@@ -10,13 +10,14 @@ import { failedNotification } from '../components/notification/failed';
 import { successNotification } from '../components/notification/succes';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 const Register = () => {
   const { state, dispatch, hasError, registerHandler, mutation, navigate } = RegisterHook()
 
   useEffect(() => {
-    if (mutation.isError) {
-      failedNotification("Login Failed")
+    if (mutation.error instanceof AxiosError) {
+      failedNotification(mutation.error.response?.data.message)
     }
     if (mutation.isSuccess) {
       successNotification("Register success", 1000)
@@ -64,7 +65,7 @@ const Register = () => {
                   <InputIcon icon={<LockOutlinedIcon />} label="Retype Password" type="password" value={state?.retypePassword} dispatch={dispatch} actionType="UPDATE_RETYPE_PASSWORD" required={true} />
                   <Typography variant="body2" color={`${state.error.retype ? "error" : "success"}`} sx={{ marginTop: "10px" }}>Password doesn't match</Typography>
                 </Box>
-                <Button variant="contained" type='submit' disabled={hasError}
+                <Button variant="contained" type='submit'
                   sx={{
                     width: "100%",
                     "&.Mui-disabled": {
