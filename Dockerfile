@@ -1,10 +1,9 @@
 # change to bun
-FROM oven/bun:latest AS build
-
+FROM node:22-alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
-RUN bun install
+RUN npm install
 
 COPY . .
 ARG VITE_APP_BASE_URL
