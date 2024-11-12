@@ -16,6 +16,27 @@ pipeline {
         sh 'npm test'
       }
     }
+    stage('SonarQube Analysis') {
+      steps {
+          script {
+              def scannerHome = tool 'sonarscanner';
+              withSonarQubeEnv('sonarserver') {
+                  sh "${scannerHome}/bin/sonar-scanner"
+              }
+          }
+      }
+    }
+
+    stage('Quality Gate') {
+      steps {
+        script {
+          def qualityGate = waitForQualityGate()
+            if (qualityGate.status != 'OK') {
+              error "Pipeline failed due to SonarQube quality gate status: ${qualityGate.status}"
+            }
+        }
+      }
+    }
     stage ("Clean Up Docker Container and Image"){
       steps{
         script{
