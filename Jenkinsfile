@@ -6,16 +6,26 @@ pipeline {
         git branch: 'main', url: 'https://github.com/DevSecOps-B-3/frontend'
       }
     }
-    stage('Debug Husky') {
-      steps {
-        sh 'ls -al'
-        sh 'ls -al .husky'
-      }
-    }
     stage('Dependency Installation') {
       steps {
         sh 'npm install --include=dev'
+      }
+    }
+        stage('Fix Husky Permissions') {
+      steps {
+        sh 'chmod +x .husky/*'
+      }
+    }
+    stage('Reinitialize Husky') {
+      steps {
         sh 'npm run prepare'
+      }
+    }
+    stage('Verify Husky and Git') {
+      steps {
+        sh 'ls -al .husky'
+        sh 'git status'
+        sh 'cat .git/config'
       }
     }
     stage('Run Unit Tests') {
