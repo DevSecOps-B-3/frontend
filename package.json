@@ -9,7 +9,7 @@
     "lint": "eslint --fix --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest run",
-    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install"
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
