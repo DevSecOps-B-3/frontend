@@ -1,4 +1,5 @@
-import { ActionType } from "../../data/dto/action_type";
+import { ActionType } from '../../data/dto/action_type';
+import { passwordChecker } from '../../utils/form';
 
 export interface RegisterStateType {
   email: string;
@@ -8,10 +9,10 @@ export interface RegisterStateType {
   error: Record<string, boolean>;
 }
 export const registerInitialState: RegisterStateType = {
-  email: "",
-  name: "",
-  password: "",
-  retypePassword: "",
+  email: '',
+  name: '',
+  password: '',
+  retypePassword: '',
   error: {
     length: true,
     number: true,
@@ -25,36 +26,55 @@ export const registerFormReducer = (
   action: ActionType
 ) => {
   switch (action.type) {
-    case "UPDATE_EMAIL":
+    case 'UPDATE_EMAIL':
       return {
         ...state,
         email: action.payload,
       };
-    case "UPDATE_NAME":
+    case 'UPDATE_NAME':
       return {
         ...state,
         name: action.payload,
       };
-    case "UPDATE_PASSWORD":
-      return {
-        ...state,
-        password: action.payload,
-      };
-    case "UPDATE_RETYPE_PASSWORD":
-      if (action.payload === state.password) {
-        delete state.error.retype;
+    case 'UPDATE_PASSWORD': {
+      const password = action.payload;
+      const error: Record<string, boolean> = passwordChecker(password);
+      if (state.retypePassword !== password) {
+        error.retype = true;
+      } else {
+        delete error.retype;
+      }
+      if (Object.keys(error).length !== 0) {
         return {
           ...state,
-          retypePassword: action.payload,
+          password,
+          error: { ...error },
         };
       }
       return {
         ...state,
-        retypePassword: action.payload,
+        password: action.payload,
+        error,
+      };
+    }
+    case 'UPDATE_RETYPE_PASSWORD': {
+      const retypePassword = action.payload;
+      if (retypePassword === state.password) {
+        delete state.error.retype;
+        return {
+          ...state,
+          retypePassword,
+        };
+      }
+      return {
+        ...state,
+        retypePassword,
         error: {
-          retype: state.password !== action.payload,
+          ...state.error,
+          retype: state.password !== retypePassword,
         },
       };
+    }
     default:
       return state;
   }
