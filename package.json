@@ -9,7 +9,7 @@
     "lint": "eslint --fix --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest run",
-    "prepare": "./node_modules/.bin/husky"
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

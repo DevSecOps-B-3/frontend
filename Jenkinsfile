@@ -11,7 +11,12 @@ pipeline {
         sh 'npm install --include=dev'
       }
     }
-        stage('Fix Husky Permissions') {
+    stage('Debug Husky Installation') {
+      steps {
+        sh 'ls -al node_modules/.bin'
+      }
+    }
+    stage('Fix Husky Permissions') {
       steps {
         sh 'chmod +x .husky/*'
       }
