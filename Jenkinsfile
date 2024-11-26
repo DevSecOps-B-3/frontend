@@ -8,7 +8,6 @@ pipeline {
     }
     stage('Dependency Installation') {
       steps {
-        sh 'npm i -g husky'
         sh 'npm install'
       }
     }
