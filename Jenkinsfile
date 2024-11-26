@@ -8,29 +8,8 @@ pipeline {
     }
     stage('Dependency Installation') {
       steps {
-        sh 'npm install --include=dev'
-      }
-    }
-    stage('Debug Husky Installation') {
-      steps {
-        sh 'ls -al node_modules/.bin'
-      }
-    }
-    stage('Fix Husky Permissions') {
-      steps {
-        sh 'chmod +x .husky/*'
-      }
-    }
-    stage('Reinitialize Husky') {
-      steps {
-        sh 'npm run prepare'
-      }
-    }
-    stage('Verify Husky and Git') {
-      steps {
-        sh 'ls -al .husky'
-        sh 'git status'
-        sh 'cat .git/config'
+        sh 'npm i -g husky'
+        sh 'npm install'
       }
     }
     stage('Run Unit Tests') {
