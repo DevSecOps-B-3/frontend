@@ -8,6 +8,7 @@ pipeline {
     }
     stage('Dependency Installation') {
       steps {
+        sh 'rm -rf .git/hooks'
         sh 'npm install'
       }
     }
