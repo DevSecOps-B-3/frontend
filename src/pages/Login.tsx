@@ -9,17 +9,18 @@ import { successNotification } from '../components/notification/succes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
+import { AxiosError } from 'axios';
 
 const Login = () => {
   const { state, dispatch, loginHandler, mutation } = LoginHook();
   useEffect(() => {
-    if (mutation.isError) {
-      failedNotification('Failed to Login');
+    if (mutation.error instanceof AxiosError) {
+      failedNotification(mutation.error.response?.data.message);
     }
     if (mutation.isSuccess) {
       successNotification('Login success', 1000);
     }
-  }, [mutation.isSuccess, mutation.isError]);
+  }, [mutation.isSuccess, mutation.error]);
   return (
     <>
       <ToastContainer />
