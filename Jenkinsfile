@@ -3,13 +3,14 @@ pipeline {
   stages {
     stage('Clone Repository') {
       steps {
+        cleanWs()
         git branch: 'main', url: 'https://github.com/DevSecOps-B-3/frontend'
       }
     }
     stage('Dependency Installation') {
       steps {
-        sh 'rm -rf .git/hooks'
-        sh 'npm install'
+        sh 'rm -rf node_modules package-lock.json'
+        sh 'export HUSKY=0 && npm ci'
       }
     }
     stage('Run Unit Tests') {
