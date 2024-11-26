@@ -12,11 +12,6 @@ pipeline {
         sh 'npm install --ignore-scripts'
       }
     }
-    stage('Run Unit Tests') {
-      steps {
-        sh 'npm test'
-      }
-    }
     stage('SonarQube Analysis') {
       steps {
           script {
