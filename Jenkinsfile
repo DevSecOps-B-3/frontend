@@ -8,6 +8,7 @@ pipeline {
     }
     stage('Dependency Installation') {
       steps {
+        sh 'npm run prepare'
         sh 'npm install'
       }
     }
