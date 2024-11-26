@@ -9,8 +9,7 @@ pipeline {
     }
     stage('Dependency Installation') {
       steps {
-        sh 'rm -rf node_modules package-lock.json'
-        sh 'export HUSKY=0 && npm install'
+        sh 'npm install --ignore-scripts'
       }
     }
     stage('Run Unit Tests') {
