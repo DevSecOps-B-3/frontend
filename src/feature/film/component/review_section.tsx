@@ -26,7 +26,7 @@ const ReviewSection = ({ reviews, movieId }: { reviews: ReviewType[], movieId: s
         marginBottom: "4em",
       }}>
         <Typography variant="h5" color="primary.main">
-          Reviews
+          Reviews by viewers
         </Typography>
         {!exist && (
           <form onSubmit={postReviewHandler}
