@@ -138,7 +138,9 @@ const CommentCard = ({
           marginTop: "5px",
           color: "white",
           marginLeft: "2.5em"
-        }} dangerouslySetInnerHTML={{ __html: review.comment }} />
+        }}>
+          {review.comment}
+        </p>
       </Box>
       <Divider
         sx={{
