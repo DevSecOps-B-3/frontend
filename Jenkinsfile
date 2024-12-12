@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Clone Repository') {
       steps {
-        git branch: 'main', url: 'https://github.com/DevSecOps-B-3/frontend'
+        git branch: 'vuln', url: 'https://github.com/DevSecOps-B-3/frontend'
       }
     }
     stage('Dependency Installation') {
