@@ -41,20 +41,20 @@ pipeline {
       steps{
         script{
           sh """
-            if [ \$(docker ps -q -f name=ambamovie-fe-vulner) ]; then
-              docker stop ambamovie-fe-vulner
+            if [ \$(docker ps -q -f name=ambamovie-vulner) ]; then
+              docker stop ambamovie-vulner
             fi
             """
 
             sh """
-            if [ \$(docker ps -a -q -f name=ambamovie-fe-vulner) ]; then
-              docker rm ambamovie-fe-vulner
+            if [ \$(docker ps -a -q -f name=ambamovie-vulner) ]; then
+              docker rm ambamovie-vulner
             fi
             """
 
             sh """
-            if [ \$(docker images -q ambamovie-img-vulner) ]; then
-              docker rmi ambamovie-img-vulner
+            if [ \$(docker images -q ambamovie-vulner-img) ]; then
+              docker rmi ambamovie-vulner-img
             fi
             """
         }
@@ -64,7 +64,7 @@ pipeline {
       steps{
         script{
           sh '''
-          docker build --build-arg VITE_APP_BASE_URL_VULNER=${VITE_APP_BASE_URL_VULNER} -t ambamovie-img-vulner .
+          docker build --build-arg VITE_APP_BASE_URL_VULNER=${VITE_APP_BASE_URL_VULNER} -t ambamovie-vulner-img .
           '''
         }
       }
@@ -72,7 +72,7 @@ pipeline {
     stage('Deploy to Production') {
       steps {
         script{
-          sh 'docker run -p 880:80 --restart=unless-stopped -d --name ambamovie-fe-vulner ambamovie-img-vulner:latest' 
+          sh 'docker run -p 880:80 --restart=unless-stopped -d --name ambamovie-vulner ambamovie-vulner-img:latest' 
         }
       }
     }
