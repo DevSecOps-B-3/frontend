@@ -72,7 +72,7 @@ pipeline {
     stage('Deploy to Production') {
       steps {
         script{
-          sh 'docker run -p 80:80 --restart=unless-stopped -d --name ambamovie-fe-vulner ambamovie-img-vulner:latest' 
+          sh 'docker run -p 880:80 --restart=unless-stopped -d --name ambamovie-fe-vulner ambamovie-img-vulner:latest' 
         }
       }
     }
