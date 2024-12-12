@@ -134,15 +134,11 @@ const CommentCard = ({
             <StarIcon key={i} fontSize="small" sx={{ color: "primary.main" }} />
           ))}
         </Box>
-        <p
-          style={{
-            marginTop: "5px",
-            color: "white",
-            marginLeft: "2.5em",
-          }}
-        >
-          {review.comment}
-        </p>
+        <p style={{
+          marginTop: "5px",
+          color: "white",
+          marginLeft: "2.5em"
+        }} dangerouslySetInnerHTML={{ __html: review.comment }} />
       </Box>
       <Divider
         sx={{
