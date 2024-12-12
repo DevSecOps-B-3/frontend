@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const axiosClient = axios.create({
-  baseURL: `${import.meta.env.VITE_APP_BASE_URL}/`,
+  baseURL: `${import.meta.env.VITE_APP_BASE_URL_VULNER}/`,
 });
 
 axiosClient.interceptors.request.use((config) => {

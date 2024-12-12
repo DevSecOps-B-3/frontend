@@ -6,8 +6,8 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-ARG VITE_APP_BASE_URL
-RUN VITE_APP_BASE_URL=$VITE_APP_BASE_URL npm run build
+ARG VITE_APP_BASE_URL_VULNER
+RUN VITE_APP_BASE_URL_VULNER=$VITE_APP_BASE_URL_VULNER npm run build
 
 # Stage 2
 FROM nginx:1.25.2-alpine
